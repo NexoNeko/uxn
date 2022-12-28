@@ -1,11 +1,10 @@
-( hello.tal )
+( hello.tal ) ( prints Hello World to console )
 
 ( devices )
 |10 @Console [ &vector $2 &read $1 &pad $5 &write $1 &error $1 ]
 
 ( macros )
 %EMIT { .Console/write DEO } ( print char to stdout )
-%PRD { #30 ADD EMIT } ( prints a num )
 %NL { #0a EMIT } ( print newline to stdout )
 
 
@@ -22,7 +21,5 @@
 	LIT "r EMIT
 	LIT "l EMIT
 	LIT "d EMIT
-	#04
-	PRD
 	NL
 
