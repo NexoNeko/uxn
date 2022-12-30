@@ -1,0 +1,95 @@
+( DrawCorners.tal ) ( Draws a square @every corner )
+
+
+( devices )
+( -----> )
+|00 @System  [ &vector $2 &pad $6 &r $2 &g $2 &b $2 ]
+|20 @Screen  [ &vector $2 &width $2 &height $2 &pad $2 &x $2 &y $2 &addr $2 &pixel $1 &sprite $1 ]
+
+( devices )
+( <----- )
+
+
+
+( macros )
+( -----> )
+( operations )
+%HALF2 { #01 SFT2 }
+
+( x/y )
+%GET-X { .Screen/width DEI2 }
+%GET-Y { .Screen/height DEI2 }
+
+%SET-X { .Screen/x DEO2 }
+%SET-Y { .Screen/y DEO2 }
+
+%PERCENT-X { .Screen/width DEI2 #0064 DIV2 }
+%PERCENT-Y { .Screen/width DEI2 #0064 DIV2 }
+
+%GETMAX-X { GET-X PERCENT-X SUB2 }
+%GETMAX-Y { GET-Y PERCENT-Y SUB2 }
+
+%RESET-X { #0000 SET-X }
+%RESET-Y { #0000 SET-Y }
+%RESET-XY { RESET-X RESET-Y }
+
+%CENTER-X { GET-X HALF2 SET-X }
+%CENTER-Y { GET-Y HALF2 SET-Y }
+%CENTER-XY { GET-X HALF2 SET-X GET-Y HALF2 SET-Y }
+
+( pixel )
+%DRWPX { #80 .Screen/sprite DEO }
+
+( macros )
+( <----- )
+
+
+
+( main program )
+( -----> )
+|0100
+	( set system colors )
+	#2ce9 .System/r DEO2
+	#01c0 .System/g DEO2
+	#2ce5 .System/b DEO2
+
+	( set sprite address )
+	;new-square .Screen/addr DEO2
+
+	( main )
+	RESET-XY
+	DRWPX
+	CENTER-X
+	DRWPX
+	GETMAX-X
+	SET-X
+	DRWPX
+	CENTER-Y
+	DRWPX
+	RESET-X
+	DRWPX
+	GETMAX-Y
+	SET-Y
+	DRWPX
+	CENTER-X
+	DRWPX
+	GETMAX-X
+	SET-X
+	DRWPX
+	CENTER-XY
+	DRWPX
+
+
+( main program )
+( <----- )
+
+
+
+( Sprites )
+( -----> )
+BRK
+
+@new-square  017f 7b73 6343 7fff   007c 7c7c 7c7c 0000
+
+( Sprites )
+( <----- )

@@ -1,0 +1,39 @@
+( hello-screen.tal ) ( draws a " :> " )
+
+( devices )
+|00 @System  [ &vector $2 &pad $6 &r $2 &g $2 &b $2 ]
+
+|20 @Screen [ &vector $2 &width $2 &height $2 &auto $1 &pad $1 &x $2 &y $2 &addr $2 &pixel $1 &sprite $1 ]
+
+( macros )
+%PIXDRW { #41 .Screen/pixel DEO }
+%XINC { .Screen/x DEI2 INC2 .Screen/x DEO2 }
+%YINC { .Screen/y DEI2 INC2 .Screen/y DEO2 }
+
+%XADD { .Screen/x DEI2 ADD2 .Screen/x DEO2 }
+%YADD { .Screen/y DEI2 ADD2 .Screen/y DEO2 }
+
+( main program )
+|0100
+	( set system colors )
+	#1ce9 .System/r DEO2
+	#11c0 .System/g DEO2
+	#2ce5 .System/b DEO2
+	
+	( set initial x,y coordinates )
+	#000c .Screen/x DEO2
+	#000c .Screen/y DEO2
+
+	( draw :> )
+	PIXDRW
+	#0002 XADD
+	PIXDRW
+	#0002 YADD
+	PIXDRW
+	#000d .Screen/x DEO2
+	YINC
+	PIXDRW
+	#000c .Screen/x DEO2
+	#000e .Screen/y DEO2
+	PIXDRW
+	

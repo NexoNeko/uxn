@@ -1,0 +1,37 @@
+( hello-sprites.tal )
+
+( devices )
+|00 @System  [ &vector $2 &pad $6 &r $2 &g $2 &b $2 ]
+|20 @Screen  [ &vector $2 &width $2 &height $2 &pad $2 &x $2 &y $2 &addr $2 &pixel $1 &sprite $1 ]
+
+( macros )
+%INIT-X { #0008 .Screen/x DEO2 }
+%INIT-Y { #0008 .Screen/y DEO2 }
+%8ADD-X { .Screen/x DEI2 #0008 ADD2 .Screen/x DEO2 }
+%8ADD-Y { .Screen/y DEI2 #0008 ADD2 .Screen/y DEO2 }
+
+( main program )
+|0100
+      ( set system colors )
+      #2ce9 .System/r DEO2
+      #01c0 .System/g DEO2
+      #2ce5 .System/b DEO2
+
+      ( set  initial x,y coordinates )
+      INIT-X INIT-Y
+
+      ( set sprite address )
+      ;cus .Screen/addr DEO2
+
+      #00 .Screen/sprite DEO 8ADD-X
+      #01 .Screen/sprite DEO 8ADD-X
+      #02 .Screen/sprite DEO 8ADD-X
+      #03 .Screen/sprite DEO 8ADD-Y
+
+
+BRK
+
+@square ff81 8181 8181 81ff
+@rock 3c4e 9ffd f962 3c00
+@character 3c7e 5a7f 1b3c 5a18
+@cus 1864 4a4d 2214 0808
